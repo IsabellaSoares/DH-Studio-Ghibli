@@ -1,53 +1,36 @@
 window.onload = () => {
-  fetch("https://ctd-fe2-todo-v2.herokuapp.com/v1/users/getMe", {
-    method: "get",
-    headers: {
-      Authorization: `${localStorage.getItem("token")}`,
-    },
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      localStorage.setItem("usuario", JSON.stringify(data));
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
-
-      document.getElementById(
-        "boas-vindas"
-      ).textContent = `Bem-vinda, ${usuario.firstName} ${usuario.lastName}!`;
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-
-  fetch("https://ghibliapi.herokuapp.com/films", {
-    method: "get",
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // console.log(data);
-
-      const cards = data.map((filme) => createCards(filme));
-
-      document.getElementById("conteudo").innerHTML = cards.join("");
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+  getUser();
+  getFilms();
 };
 
-function createCards(filme) {
+function getUser () {
+  // 1. Pegar as informações do usuário logado
+  // 2. Guardar essas informações no browser
+  // 3. Usar o código abaixo para dar boas-vindas ao usuário
+
+  // document.getElementById(
+  //   "boas-vindas"
+  // ).textContent = `Bem-vinda, ${primeiro_nome_do_usuario} ${segundo_nome_do_usuario}!`;
+}
+
+function getFilms () {
+  // 1. Pegar a lista de filmes na API do Studio Ghibli (https://ghibliapi.herokuapp.com/films)
+  // 2. Criar a lista de cards
+  // 3. Inserir a lista na div "conteudo"
+}
+
+function createCards() {
+  // Esse é o card de um filme, lembre-se de inserir as informações necessárias
+
   return `
   <div class="col-sm-4">
     <div class="card">
     <div class="card-header">
-      ${filme.title}
+      <Nome do filme>
     </div>
-    <img class="card-img-top" src=${filme.movie_banner} alt="Card image cap">
+    <img class="card-img-top" src="imagem_do_filme" alt="Card image cap">
       <div class="card-body">
-        <p class="card-text">${filme.description}</p>
+        <p class="card-text"><Descrição do filme></p>
       </div>
     </div>
   </div>`;
