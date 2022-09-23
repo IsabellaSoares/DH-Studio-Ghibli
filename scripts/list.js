@@ -1,4 +1,9 @@
 window.onload = () => {
+  getUser();
+  getFilms();
+};
+
+function getUser() {
   fetch("https://ctd-fe2-todo-v2.herokuapp.com/v1/users/getMe", {
     method: "get",
     headers: {
@@ -19,7 +24,9 @@ window.onload = () => {
     .catch(function (err) {
       console.log(err);
     });
+}
 
+function getFilms() {
   fetch("https://ghibliapi.herokuapp.com/films", {
     method: "get",
   })
@@ -27,8 +34,6 @@ window.onload = () => {
       return response.json();
     })
     .then(function (data) {
-      // console.log(data);
-
       const cards = data.map((filme) => createCards(filme));
 
       document.getElementById("conteudo").innerHTML = cards.join("");
@@ -36,7 +41,7 @@ window.onload = () => {
     .catch(function (err) {
       console.log(err);
     });
-};
+}
 
 function createCards(filme) {
   return `
