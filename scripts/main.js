@@ -1,35 +1,59 @@
-window.onload = () => {
-  fetch("https://ghibliapi.herokuapp.com/films", {
-    method: "get",
+function login (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
+
+    const data = {
+        email, password
+    }
+
+    fetch("https://ctd-fe2-todo-v2.herokuapp.com/v1/users/login", {
+        method: "post",
+        headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
+          localStorage.setItem('token', data.jwt);
+          window.location.href = 'list.html';
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+}
+
+function signup (event) {
+    event.preventDefault();
+
+    const firstName = document.getElementById("firstName").value
+    const lastName = document.getElementById("lastName").value
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
+
+    const data = {
+        firstName, lastName, email, password
+    }
+
+    fetch("https://ctd-fe2-todo-v2.herokuapp.com/v1/users", {
+    method: "post",
+    headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
   })
     .then(function (response) {
       return response.json();
     })
-    .then(function (data) {
-      console.log(data);
-
-      const cards = data.map((filme) => createCards(filme));
-
-      document.getElementById("conteudo").innerHTML = cards.join('');
+    .then(function () {
+      window.location.href = 'index.html';
     })
     .catch(function (err) {
       console.log(err);
     });
-
-  // https://ctd-fe2-todo-v2.herokuapp.com/v1/
-};
-
-function createCards(filme) {
-  return `
-  <div class="col-sm-4">
-    <div class="card">
-    <div class="card-header">
-      ${filme.title}
-    </div>
-    <img class="card-img-top" src=${filme.movie_banner} alt="Card image cap">
-      <div class="card-body">
-        <p class="card-text">${filme.description}</p>
-      </div>
-    </div>
-  </div>`;
 }

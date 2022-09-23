@@ -1,4 +1,5 @@
-body {
+html, body {
+  height: 100%;
   margin: 0;
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -6,9 +7,10 @@ body {
   background-color: #f6f6f6;
 }
 
-#app {
+#app, #lista {
   text-align: center;
   padding: 15px;
+  height: 100%;
 }
 
 p {
